@@ -94,6 +94,11 @@
             box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.2);
         }
         
+        /* メッセージボックスの基本スタイル */
+        .message-box {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
     </style>
 </head>
 
@@ -122,7 +127,7 @@
             <section class="mb-12 text-center">
                 <p class="text-sm font-sf text-cyan-400 mb-2 tracking-widest">[PROJECT ARTIFACT ID: TPK-SF-V2]</p>
                 <h1 class="text-5xl md:text-6xl font-extrabold neon-text tracking-wider leading-tight">
-                    【SF】テクスチャパック V2.0
+                    【からぴち】ピエロがいるサバイバル再現MOD
                 </h1>
                 <p class="mt-4 text-xl text-gray-400">近未来都市をテーマにした没入型リソースパック</p>
             </section>
@@ -135,9 +140,9 @@
                     <div class="md:w-2/3">
                         <h2 class="section-header">DATA OVERVIEW [概要]</h2>
                         <p class="text-gray-300 leading-relaxed mb-6">
-                            Minecraftの世界を、光り輝くネオンとサイバーテクノロジーに満ちた未来都市へと変貌させます。
-                            V2.0では、新たに30種類以上のカスタムブロックテクスチャを追加し、特に夜間の環境光とUIデザインに注力。
-                            まるでコックピットにいるかのような体験を提供します。
+                            最大12人でプレイできるミニゲームMOD。
+                            人狼×サバイバルのようなコンセプトのゲームで、見ているだけでも楽しめます。
+                            カラフルピーチさんの作品を細部まで見様見真似で再現しました！
                         </p>
                         <ul class="space-y-2 text-sm text-cyan-200">
                             <li class="flex items-center"><span class="neon-text mr-3">>></span> バージョン: 1.20.X (推奨: OptiFineまたはFabric/Sodium)</li>
@@ -145,14 +150,26 @@
                             <li class="flex items-center"><span class="neon-text mr-3">>></span> ファイルサイズ: 約 45 MB</li>
                         </ul>
                     </div>
+                    
+                    <!-- ☆☆☆ 変更箇所 1: ダウンロードボタンを<a>から<button>に変更し、JavaScript関数を呼び出すようにする ☆☆☆ -->
                     <div class="md:w-1/3 mt-8 md:mt-0 flex flex-col justify-center items-center p-4 bg-[#1A2035] rounded-lg border border-cyan-500">
                         <h3 class="text-xl font-sf neon-text mb-4">DOWNLOAD READY</h3>
-                        <a href="your-file-link-1.zip" download class="neon-btn text-center w-full py-3 rounded-lg font-bold">
+                        <button 
+                            id="downloadButton"
+                            onclick="downloadSFPack()" 
+                            class="neon-btn text-center w-full py-3 rounded-lg font-bold"
+                            aria-live="polite"
+                        >
                             <span class="tracking-widest flex items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-4H9V8h4v4h2v4z"/></svg>
                                 V2.0 FINAL DOWNLOAD
                             </span>
-                        </a>
+                        </button>
+                        
+                        <!-- ☆☆☆ 変更箇所 2: メッセージボックスのコンテナを追加 ☆☆☆ -->
+                        <div id="messageBox" class="message-box mt-3 w-full p-2 text-center text-xs text-gray-400 bg-transparent rounded-lg">
+                            準備完了。ボタンを押してください。
+                        </div>
                     </div>
                 </div>
 
@@ -198,5 +215,112 @@
         <p class="tracking-widest font-sf">&copy; 2025 UMA GAMING. ALL RIGHTS RESERVED. [MATRIX ONLINE]</p>
     </footer>
 
+    <!-- ☆☆☆ 変更箇所 3: ダウンロード用JavaScript関数の追加 ☆☆☆ -->
+    <script>
+        // ファイルの保存場所を定義
+        const FOLDER_PATH = './file/'; 
+        // 実際のファイル名を定義 (仮のファイル名)
+        const DOWNLOAD_FILENAME = 'sf-texture-pack-v2.0.zip'; 
+        
+        const messageBox = document.getElementById('messageBox');
+        const downloadButton = document.getElementById('downloadButton');
+
+        /**
+         * メッセージボックスに結果を表示する
+         * @param {string} message - 表示するメッセージ
+         * @param {'success'|'error'|'info'|'loading'} type - メッセージの種類
+         */
+        function showMessage(message, type) {
+            let bgColor = 'bg-transparent';
+            let borderColor = 'border-transparent';
+            let textColor = 'text-gray-400';
+            let opacity = 'opacity-100';
+
+            switch (type) {
+                case 'success':
+                    textColor = 'text-green-400';
+                    break;
+                case 'error':
+                    textColor = 'text-red-400';
+                    break;
+                case 'loading':
+                    textColor = 'text-yellow-400';
+                    message = `<span class="animate-pulse">${message}</span>`;
+                    break;
+                case 'info':
+                default:
+                    textColor = 'text-cyan-400';
+                    break;
+            }
+            
+            messageBox.className = `message-box mt-3 w-full p-2 text-center text-xs ${textColor} ${bgColor} rounded-lg ${opacity}`;
+            messageBox.innerHTML = message;
+        }
+
+
+        /**
+         * 指定されたファイル名とパスでダウンロードを実行する
+         * (以前のやり取りで提供された構文をベースにしています)
+         */
+        async function downloadFile(fileName) {
+            const fullPath = FOLDER_PATH + fileName;
+            
+            // ロード中表示
+            downloadButton.disabled = true;
+            downloadButton.classList.add('opacity-50', 'cursor-not-allowed');
+            showMessage(`[STATUS: PULLING DATA] ${fileName} の取得を開始...`, 'loading');
+
+            try {
+                // 1. ファイルを取得 (fetch)
+                const response = await fetch(fullPath);
+
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error(`ファイルが見つかりません。パスを確認: ${fullPath}`);
+                    }
+                    throw new Error(`ダウンロードエラー: HTTP ${response.status} ${response.statusText}`);
+                }
+
+                // 2. レスポンスからBlob (バイナリデータ) を取得
+                const blob = await response.blob();
+
+                // 3. ダウンロードリンク (a要素) を作成してクリック
+                const downloadUrl = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                
+                a.href = downloadUrl;
+                a.download = fileName; 
+
+                // 4. ダウンロードを実行
+                document.body.appendChild(a);
+                a.click(); 
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(downloadUrl);
+
+                showMessage(`[STATUS: DOWNLOAD COMPLETE] ${fileName} のダウンロードが完了しました。`, 'success');
+
+            } catch (error) {
+                console.error('ダウンロードエラー:', error);
+                showMessage(`[STATUS: ERROR] ダウンロードに失敗しました: ${error.message}`, 'error');
+            } finally {
+                // 完了/失敗に関わらずボタンを元に戻す
+                downloadButton.disabled = false;
+                downloadButton.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        /**
+         * SFテクスチャパックのダウンロード処理を呼び出す
+         */
+        function downloadSFPack() {
+            downloadFile(DOWNLOAD_FILENAME);
+        }
+
+        // 初期メッセージを設定
+        window.onload = function() {
+            showMessage('準備完了。ボタンを押してください。', 'info');
+        }
+
+    </script>
 </body>
 </html>
