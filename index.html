@@ -256,11 +256,6 @@
             0% { left: -100%; }
             100% { left: 100%; }
         }
-
-        /* ページ切り替え用のCSS */
-        .hidden-page {
-            display: none !important;
-        }
     </style>
 </head>
 
@@ -277,10 +272,9 @@
         
         <!-- ナビゲーション -->
         <nav class="hidden md:flex space-x-8 text-sm font-semibold">
-            <!-- リンクのhrefはIDに合わせて修正 -->
-            <a href="#about" class="hover:text-cyan-400 transition duration-300">コンセプト</a>
             <a href="#downloads" class="hover:text-cyan-400 transition duration-300">配布ファイル</a>
             <a href="https://www.youtube.com/@your-uma-channel" target="_blank" class="hover:text-cyan-400 transition duration-300">チャンネルへ</a>
+            <a href="#about" class="hover:text-cyan-400 transition duration-300">コンセプト</a>
         </nav>
         
         <!-- SNSリンク (Font Awesomeアイコンの代わりにSVGを使用) -->
@@ -312,13 +306,13 @@
             <h1 class="glitch-title" data-text="UMA GAMING DOWNLOAD HUB">UMA GAMING DOWNLOAD HUB</h1>
             <p class="mt-4 text-xl tracking-widest text-gray-400 font-sf mb-10">MINECRAFT CUSTOM CONTENT</p>
             
-            <!-- CTAボタン: ファイル一覧へスクロールするように変更 -->
+            <!-- 新しいCTAボタン -->
             <button id="cta-button" class="neon-btn px-8 py-3 text-lg font-bold rounded-full tracking-widest shadow-lg">
                 <span class="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2 animate-pulse" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-4H9V8h4v4h2v4z"/>
                     </svg>
-                    ファイル一覧へ [ACCESS FILES]
+                    データ転送開始 [START DOWNLOAD]
                 </span>
             </button>
         </section>
@@ -326,7 +320,7 @@
         <!-- ヒーローとコンセプトの間のセクション区切り線 -->
         <div class="separator-line max-w-7xl mx-auto"></div>
 
-        <!-- チャンネル紹介/コンセプトセクション (#about) -->
+        <!-- チャンネル紹介/コンセプトセクション (#about) を先に配置 -->
         <section id="about" class="py-16 px-4 sm:px-8 lg:px-16 bg-black bg-opacity-50">
             <div class="max-w-4xl mx-auto">
                 <h2 class="text-3xl font-bold mb-12 text-center neon-text font-sf fade-in-slide is-visible">
@@ -390,100 +384,63 @@
             </div>
         </section>
         
-        <!-- コンセプトと配布ファイルの間のセクション区切り線 -->
+        <!-- コンセプトと配布ファイルの間のセクション区切り線を追加 -->
         <div class="separator-line max-w-7xl mx-auto"></div>
 
-        <!-- **コンテンツコンテナ**: downloadsとdetail-viewを切り替える -->
-        <div id="content-container">
-            <!-- 配布ファイル一覧セクション (#downloads) - 初期表示 -->
-            <section id="downloads" class="py-16 md:py-24 px-4 sm:px-8 lg:px-16">
-                <div class="max-w-7xl mx-auto">
-                    <h2 class="text-3xl font-bold mb-12 text-center neon-text font-sf">
-                        <span class="border-b-4 border-cyan-500 pb-2">PROJECT DATA ARTIFACTS</span>
-                    </h2>
+        <!-- 配布ファイル一覧セクション (#downloads) を後に配置 -->
+        <section id="downloads" class="py-16 md:py-24 px-4 sm:px-8 lg:px-16">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-bold mb-12 text-center neon-text font-sf">
+                    <span class="border-b-4 border-cyan-500 pb-2">PROJECT DATA ARTIFACTS</span>
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     
-                    <div id="download-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        
-                        <!-- ファイルアイテム 1: ボタンを詳細画面へ変更 -->
-                        <article class="download-item neon-card rounded-xl p-6 flex flex-col justify-between fade-in-slide">
-                            <div>
-                                <h3 class="text-2xl font-bold neon-text mb-2">【SF】テクスチャパック V2.0</h3>
-                                <p class="text-sm font-sf mb-4 text-cyan-300">SYSTEM READY: V1.20.X</p>
-                                <p class="text-gray-300 mb-6">コックピット風UIとネオンブロックを追加した近未来的なテクスチャパック。没入感を高めるために最適化されています。</p>
-                            </div>
-                            <!-- クリックで詳細表示関数を呼び出し -->
-                            <button onclick="showDetail('sf_texture')" class="neon-btn text-center py-2 rounded-lg font-bold">
-                                <span class="tracking-widest flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
-                                    </svg>
-                                    詳細を見る [ACCESS DATA]
-                                </span>
-                            </button>
-                        </article>
+                    <!-- ファイルアイテム 1: アニメーションクラスを追加 -->
+                    <article class="download-item neon-card rounded-xl p-6 flex flex-col justify-between fade-in-slide">
+                        <div>
+                            <h3 class="text-2xl font-bold neon-text mb-2">【SF】テクスチャパック V2.0</h3>
+                            <p class="text-sm font-sf mb-4 text-cyan-300">SYSTEM READY: V1.20.X</p>
+                            <p class="text-gray-300 mb-6">コックピット風UIとネオンブロックを追加した近未来的なテクスチャパック。没入感を高めるために最適化されています。</p>
+                        </div>
+                        <a href="your-file-link-1.zip" download class="download-btn neon-btn text-center py-2 rounded-lg font-bold">
+                            <span class="tracking-widest">DOWNLOAD DATA FILE</span>
+                        </a>
+                    </article>
 
-                        <!-- ファイルアイテム 2: ボタンを詳細画面へ変更 -->
-                        <article class="download-item neon-card rounded-xl p-6 flex flex-col justify-between fade-in-slide">
-                            <div>
-                                <h3 class="text-2xl font-bold neon-text mb-2">巨大都市マップデータ</h3>
-                                <p class="text-sm font-sf mb-4 text-cyan-300">SYSTEM READY: V1.19.X</p>
-                                <p class="text-gray-300 mb-6">サバイバルと探索が楽しめる高層ビル街マップ。あなたの次の冒険の舞台に。</p>
-                            </div>
-                            <!-- クリックで詳細表示関数を呼び出し -->
-                            <button onclick="showDetail('city_map')" class="neon-btn text-center py-2 rounded-lg font-bold">
-                                <span class="tracking-widest flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
-                                    </svg>
-                                    詳細を見る [ACCESS DATA]
-                                </span>
-                            </button>
-                        </article>
+                    <!-- ファイルアイテム 2: アニメーションクラスを追加 -->
+                    <article class="download-item neon-card rounded-xl p-6 flex flex-col justify-between fade-in-slide">
+                        <div>
+                            <h3 class="text-2xl font-bold neon-text mb-2">巨大都市マップデータ</h3>
+                            <p class="text-sm font-sf mb-4 text-cyan-300">SYSTEM READY: V1.19.X</p>
+                            <p class="text-gray-300 mb-6">サバイバルと探索が楽しめる高層ビル街マップ。あなたの次の冒険の舞台に。</p>
+                        </div>
+                        <a href="your-file-link-2.zip" download class="download-btn neon-btn text-center py-2 rounded-lg font-bold">
+                            <span class="tracking-widest">DOWNLOAD DATA FILE</span>
+                        </a>
+                    </article>
 
-                        <!-- ファイルアイテム 3: ボタンを詳細画面へ変更 -->
-                        <article class="download-item neon-card rounded-xl p-6 flex flex-col justify-between fade-in-slide">
-                            <div>
-                                <h3 class="text-2xl font-bold neon-text mb-2">カスタムシェーダー設定</h3>
-                                <p class="text-sm font-sf mb-4 text-cyan-300">SYSTEM READY: V1.20.X</p>
-                                <p class="text-gray-300 mb-6">影と光の表現を極限まで強化した設定ファイル。迫力のあるマイクラを楽しめます。</p>
-                            </div>
-                            <!-- クリックで詳細表示関数を呼び出し -->
-                            <button onclick="showDetail('shader_config')" class="neon-btn text-center py-2 rounded-lg font-bold">
-                                <span class="tracking-widest flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
-                                    </svg>
-                                    詳細を見る [ACCESS DATA]
-                                </span>
-                            </button>
-                        </article>
+                    <!-- ファイルアイテム 3: アニメーションクラスを追加 -->
+                    <article class="download-item neon-card rounded-xl p-6 flex flex-col justify-between fade-in-slide">
+                        <div>
+                            <h3 class="text-2xl font-bold neon-text mb-2">カスタムシェーダー設定</h3>
+                            <p class="text-sm font-sf mb-4 text-cyan-300">SYSTEM READY: V1.20.X</p>
+                            <p class="text-gray-300 mb-6">影と光の表現を極限まで強化した設定ファイル。迫力のあるマイクラを楽しめます。</p>
+                        </div>
+                        <a href="your-file-link-3.zip" download class="download-btn neon-btn text-center py-2 rounded-lg font-bold">
+                            <span class="tracking-widest">DOWNLOAD DATA FILE</span>
+                        </a>
+                    </article>
 
-                        <!-- 今後追加するファイル用のプレースホルダー -->
-                        <article class="download-item neon-card rounded-xl p-6 opacity-70 border-dashed hover:opacity-100 transition duration-500 flex flex-col justify-center items-center text-center fade-in-slide">
-                            <h3 class="text-xl font-sf text-gray-500">NEW PROJECT LOADING...</h3>
-                            <p class="text-gray-600 mt-2">次のデータアーティファクトにご期待ください。</p>
-                        </article>
+                    <!-- 今後追加するファイル用のプレースホルダー: アニメーションクラスを追加 -->
+                    <article class="download-item neon-card rounded-xl p-6 opacity-70 border-dashed hover:opacity-100 transition duration-500 flex flex-col justify-center items-center text-center fade-in-slide">
+                        <h3 class="text-xl font-sf text-gray-500">NEW PROJECT LOADING...</h3>
+                        <p class="text-gray-600 mt-2">次のデータアーティファクトにご期待ください。</p>
+                    </article>
 
-                    </div>
                 </div>
-            </section>
-
-            <!-- ファイル詳細表示セクション (#detail-view) - 初期非表示 -->
-            <section id="detail-view" class="py-16 md:py-24 px-4 sm:px-8 lg:px-16 hidden-page">
-                <!-- コンテンツはJSで動的に挿入されます -->
-                <div class="max-w-4xl mx-auto">
-                    <!-- 戻るボタン -->
-                    <button onclick="showPage('downloads')" class="neon-btn px-4 py-2 text-sm rounded-lg mb-8 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg>
-                        一覧に戻る [RETURN]
-                    </button>
-
-                    <div id="detail-content" class="neon-card rounded-xl p-8 shadow-2xl space-y-6">
-                        <!-- 詳細コンテンツがここに挿入されます -->
-                    </div>
-                </div>
-            </section>
-        </div>
+            </div>
+        </section>
         
     </main>
 
@@ -492,120 +449,14 @@
         <p class="tracking-widest font-sf">&copy; 2025 UMA GAMING. ALL RIGHTS RESERVED. [MATRIX ONLINE]</p>
     </footer>
 
-    <!-- JavaScript for Particle Effect, Scroll Animation, and Page Switching -->
+    <!-- JavaScript for Particle Effect and Scroll Animation -->
     <script>
-        // --- 1. ダウンロードファイルデータ構造 ---
-        const downloadItemsData = [
-            {
-                id: 'sf_texture',
-                title: '【SF】テクスチャパック V2.0',
-                version: 'V1.20.X',
-                shortDesc: 'コックピット風UIとネオンブロックを追加した近未来的なテクスチャパック。没入感を高めるために最適化されています。',
-                longDesc: 'このテクスチャパックは、Minecraftの世界をサイバーパンクな近未来都市に変貌させます。すべてのUI要素はホログラフィックなコックピットデザインに更新され、通常のブロックはネオンライトが輝く金属、ガラス、回路基板のような質感に置き換えられています。特に夜間の都市景観は圧巻です。**必須事項:** OptiFineまたはFabric (Sodium + Iris) の導入を強く推奨します。',
-                imageUrl: 'https://placehold.co/800x450/1A2035/00FFFF?text=SF+TEXTURE+PREVIEW',
-                downloadUrl: 'your-file-link-1.zip'
-            },
-            {
-                id: 'city_map',
-                title: '巨大都市マップデータ',
-                version: 'V1.19.X',
-                shortDesc: 'サバイバルと探索が楽しめる高層ビル街マップ。あなたの次の冒険の舞台に。',
-                longDesc: '広大な面積にわたって緻密に設計された高層ビル群が広がるカスタムマップです。ビル内部には未発見のルートや隠されたアイテムが多数存在し、サバイバルモードでも探索要素を楽しめます。夜には無数のネオンが輝き、テクスチャパックと組み合わせることで最高の体験が得られます。データ容量が大きいため、ダウンロードには時間がかかる場合があります。',
-                imageUrl: 'https://placehold.co/800x450/1A2035/00FFFF?text=CITY+MAP+PREVIEW',
-                downloadUrl: 'your-file-link-2.zip'
-            },
-            {
-                id: 'shader_config',
-                title: 'カスタムシェーダー設定',
-                version: 'V1.20.X',
-                shortDesc: '影と光の表現を極限まで強化した設定ファイル。迫力のあるマイクラを楽しめます。',
-                longDesc: '私が最適化したカスタムシェーダー設定ファイルです。リアルタイムレイトレーシングに近い反射、水面の美しい波紋、そしてネオンカラーを際立たせる強いブルーム（光の拡散）効果が特徴です。パフォーマンスを考慮しつつも、最大限のビジュアルクオリティを追求しました。**注意:** 高いPCスペックが必要です。',
-                imageUrl: 'https://placehold.co/800x450/1A2035/00FFFF?text=SHADER+PREVIEW',
-                downloadUrl: 'your-file-link-3.zip'
-            }
-        ];
-
-        // --- 2. ページ切り替えロジック ---
-
-        /**
-         * ページ表示を切り替える
-         * @param {string} pageId - 'downloads' または 'detail-view'
-         */
-        function showPage(pageId) {
-            const downloads = document.getElementById('downloads');
-            const detailView = document.getElementById('detail-view');
-            
-            // 全てのページを非表示にする
-            downloads.classList.add('hidden-page');
-            detailView.classList.add('hidden-page');
-
-            // 指定されたページを表示する
-            if (pageId === 'downloads') {
-                downloads.classList.remove('hidden-page');
-            } else if (pageId === 'detail-view') {
-                detailView.classList.remove('hidden-page');
-            }
-            
-            // ページトップに戻る
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        /**
-         * ファイル詳細を表示する
-         * @param {string} itemId - downloadItemsDataのID
-         */
-        function showDetail(itemId) {
-            const item = downloadItemsData.find(d => d.id === itemId);
-            const detailContent = document.getElementById('detail-content');
-
-            if (!item) {
-                detailContent.innerHTML = `<h3 class="text-xl neon-text">エラー: ファイルが見つかりません [ERROR: FILE NOT FOUND]</h3>`;
-                showPage('detail-view');
-                return;
-            }
-
-            // HTMLコンテンツを動的に生成
-            detailContent.innerHTML = `
-                <!-- タイトルとバージョン情報 -->
-                <h2 class="text-4xl font-bold neon-text font-sf border-b border-cyan-700 pb-3 mb-4">${item.title}</h2>
-                <p class="text-lg text-cyan-400 font-sf mb-6">対応バージョン: ${item.version}</p>
-                
-                <!-- プレビュー画像 -->
-                <img 
-                    src="${item.imageUrl}" 
-                    alt="${item.title} プレビュー" 
-                    class="w-full h-auto rounded-lg shadow-lg border-2 border-cyan-600 mb-8"
-                    onerror="this.onerror=null;this.src='https://placehold.co/800x450/1A2035/00FFFF?text=IMAGE+LOADING+ERROR'"
-                />
-
-                <!-- 詳細説明 -->
-                <h3 class="text-2xl font-bold text-cyan-500 mb-3 font-sf">概要 [ABSTRACT]</h3>
-                <p class="text-gray-300 whitespace-pre-wrap leading-relaxed mb-8">${item.longDesc}</p>
-
-                <!-- ダウンロードボタン -->
-                <a href="${item.downloadUrl}" download class="neon-btn block w-full text-center py-3 text-lg font-bold rounded-lg shadow-xl hover:shadow-cyan-400/50 transition duration-300">
-                    <span class="tracking-widest flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2 animate-bounce" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
-                        </svg>
-                        ${item.title} をダウンロード [INITIATE TRANSFER]
-                    </span>
-                </a>
-            `;
-
-            // 詳細ページに切り替える
-            showPage('detail-view');
-        }
-
-
-        // --- 3. その他の初期化・アニメーションロジック (変更なし) ---
-        
         // DOM要素の取得
         const particleCanvas = document.getElementById('particle-canvas');
         var W = window.innerWidth; 
         var H = window.innerHeight; 
 
-        // Particleクラスの定義 (省略: 以前のバージョンと同じ)
+        // Particleクラスの定義
         class Particle {
             constructor() {
                 this.x = Math.random() * W;
@@ -629,24 +480,33 @@
             }
 
             update() {
+                // 粒子の移動
                 this.x += this.speedX;
                 this.y += this.speedY;
+
+                // 画面外に出たら反対側から出現させる
                 if (this.x > W) this.x = 0;
                 if (this.x < 0) this.x = W;
                 if (this.y > H) this.y = 0;
                 if (this.y < 0) this.y = H;
+
                 this.element.style.transform = `translate(${this.x}px, ${this.y}px)`;
             }
         }
 
         let particlesArray = [];
-        const numberOfParticles = 80;
+        const numberOfParticles = 80; // 粒子の数
 
+        // パーティクルアニメーションの初期化と実行
         function initParticles() {
+            // 既存のパーティクルをクリア
             particleCanvas.innerHTML = '';
             particlesArray = [];
+
+            // 現在の画面サイズを取得
             W = window.innerWidth;
             H = window.innerHeight;
+
             for (let i = 0; i < numberOfParticles; i++) {
                 particlesArray.push(new Particle());
             }
@@ -657,31 +517,41 @@
             particlesArray.forEach(particle => particle.update());
         }
 
+        // ----------------------------------
+        // スクロールアニメーションの監視 (IntersectionObserver)
+        // ----------------------------------
         function setupScrollAnimation() {
+            // IntersectionObserverの設定
             const observerOptions = {
-                root: null,
+                root: null, // ビューポートをルートとする
                 rootMargin: '0px',
-                threshold: 0.1
+                threshold: 0.1 // 要素が10%見えたら発火
             };
 
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
+                    // 要素がビューポートに入ったら
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
+                        // 一度表示したら監視を停止
                         observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
 
+            // すべてのアニメーション対象要素を取得して監視を開始
             document.querySelectorAll('.fade-in-slide').forEach(element => {
                 observer.observe(element);
             });
             
+            // ヒーローセクションは初期表示されているため、強制的にアニメーションを適用
             document.querySelector('.glitch-title').parentElement.classList.add('is-visible');
         }
         
+        // ヒーローセクションのCTAボタンがクリックされた時のスクロール処理
         function setupCtaScroll() {
             const ctaButton = document.getElementById('cta-button');
+            // ダウンロードセクションが2番目に来るように順序が変わったため、リンクも修正
             const downloadsSection = document.getElementById('downloads');
 
             if (ctaButton && downloadsSection) {
@@ -691,21 +561,21 @@
             }
         }
 
+        // ウィンドウロード時にすべての処理を開始
         window.onload = function() {
             initParticles();
             animateParticles();
             setupScrollAnimation();
             setupCtaScroll();
-            // 初期表示はダウンロード一覧
-            showPage('downloads'); 
         };
 
+        // ウィンドウリサイズ時の処理（パーティクルが画面からはみ出さないように）
         let resizeTimer;
         window.addEventListener('resize', () => {
              clearTimeout(resizeTimer);
              resizeTimer = setTimeout(() => {
                 initParticles();
-             }, 250);
+             }, 250); // 250ms後に再初期化
         });
     </script>
 
