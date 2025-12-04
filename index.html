@@ -335,11 +335,10 @@
                         <div class="flex flex-col items-center flex-shrink-0">
                             <!-- アイコン画像 (ネオンリング適用) -->
                             <div class="w-32 h-32 md:w-40 md:h-40 neon-ring rounded-full bg-gray-900 mb-4">
-                                <!-- ☆☆☆ [重要] ここをローカルのファイルパスに変更しました ☆☆☆ -->
+                                <!-- フォールバック画像を使用 -->
                                 <img 
-                                    src="./img/uma_icon.png" 
+                                    src="https://placehold.co/160x160/0B0E19/00FFFF?text=UMA_ICON" 
                                     alt="チャンネル運営者のアイコン" 
-                                    onerror="this.onerror=null;this.src='https://placehold.co/160x160/0B0E19/00FFFF?text=UMA_ICON_FALLBACK'"
                                     class="w-full h-full object-cover rounded-full p-1"
                                 />
                             </div>
@@ -396,15 +395,16 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     
-                    <!-- ファイルアイテム 1: アニメーションクラスを追加 -->
+                    <!-- ファイルアイテム 1: 詳細ページへのリンクに変更 -->
                     <article class="download-item neon-card rounded-xl p-6 flex flex-col justify-between fade-in-slide">
                         <div>
                             <h3 class="text-2xl font-bold neon-text mb-2">【SF】テクスチャパック V2.0</h3>
                             <p class="text-sm font-sf mb-4 text-cyan-300">SYSTEM READY: V1.20.X</p>
                             <p class="text-gray-300 mb-6">コックピット風UIとネオンブロックを追加した近未来的なテクスチャパック。没入感を高めるために最適化されています。</p>
                         </div>
-                        <a href="your-file-link-1.zip" download class="download-btn neon-btn text-center py-2 rounded-lg font-bold">
-                            <span class="tracking-widest">DOWNLOAD DATA FILE</span>
+                        <!-- リンク先を詳細ページに設定 -->
+                        <a href="sf-texture-pack.html" class="download-btn neon-btn text-center py-2 rounded-lg font-bold">
+                            <span class="tracking-widest">VIEW PROJECT LOG</span>
                         </a>
                     </article>
 
@@ -541,19 +541,18 @@
 
             // すべてのアニメーション対象要素を取得して監視を開始
             document.querySelectorAll('.fade-in-slide').forEach(element => {
-                observer.observe(element);
+                // 既にis-visibleが付いている要素は監視しない
+                if (!element.classList.contains('is-visible')) {
+                    observer.observe(element);
+                }
             });
             
-            // ヒーローセクションは初期表示されているため、強制的にアニメーションを適用
-            // glitch-titleの親要素（.hero-section）にアニメーションを適用するクラスがないため、
-            // ここでは .fade-in-slide を持つ最初の要素をすぐに表示するよう調整します。
-            // 既存のHTMLにはヒーローセクションの子要素にis-visibleクラスを付けているため、ここでは特に操作は不要です。
+            // ヒーローセクションの子要素にis-visibleクラスを付けているため、ここでは特に操作は不要です。
         }
         
         // ヒーローセクションのCTAボタンがクリックされた時のスクロール処理
         function setupCtaScroll() {
             const ctaButton = document.getElementById('cta-button');
-            // ダウンロードセクションが2番目に来るように順序が変わったため、リンクも修正
             const downloadsSection = document.getElementById('downloads');
 
             if (ctaButton && downloadsSection) {
@@ -583,4 +582,3 @@
 
 </body>
 </html>
-
