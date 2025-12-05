@@ -104,19 +104,41 @@
 
 <body class="selection:bg-cyan-500 selection:text-black">
 
-    <!-- ヘッダーセクション (index.htmlと同じ) -->
+    <!-- ヘッダーセクション -->
+    <!-- flex justify-between で左右に要素を配置 -->
     <header class="header fixed top-0 w-full p-4 flex justify-between items-center">
+        
+        <!-- 1. 左: ロゴ -->
         <div class="logo text-2xl font-bold tracking-widest">
             <a href="index.html" class="neon-text no-underline">UMA GAMING</a>
         </div>
-        <nav class="hidden md:flex space-x-8 text-sm font-semibold">
-            <a href="index.html#downloads" class="hover:text-cyan-400 transition duration-300">配布ファイル一覧へ</a>
-            <a href="https://www.youtube.com/@UMA_ModCreator" target="_blank" class="hover:text-cyan-400 transition duration-300">チャンネルへ</a>
+        
+        <!-- 2. 中央: ナビゲーションリンク -->
+        <!-- absolute, left-1/2, -translate-x-1/2 で親要素(fixedのheader)に対して中央寄せを実現 -->
+        <!-- md:flex でデスクトップでのみ表示 -->
+        <nav class="absolute left-1/2 transform -translate-x-1/2 hidden md:flex space-x-8 text-sm font-semibold">
+            <!-- 配布コンテンツ -->
+            <a href="#downloads" class="hover:text-cyan-400 transition duration-300">配布コンテンツ</a>
+            <!-- FAQ -->
+            <a href="#faq" class="hover:text-cyan-400 transition duration-300">FAQ</a>
+            <!-- クリエイター (ここではYouTubeチャンネルをクリエイター情報として利用) -->
+            <a href="https://www.youtube.com/@UMA_ModCreator" target="_blank" class="hover:text-cyan-400 transition duration-300">クリエイター</a>
         </nav>
-        <div class="social-links flex space-x-4">
-            <!-- X (Twitter) - 簡略化のためにSVGは省略 -->
-            <a href="https://x.com/UMA_ModCreator" target="_blank" class="social-link text-xl hover:text-cyan-500">X</a>
-            <a href="https://discord.gg/vSFzWh7Zfe" target="_blank" class="social-link text-xl hover:text-cyan-500">D</a>
+
+        <!-- 3. 右: SNSアイコン (右端に配置) -->
+        <div class="flex items-center space-x-4 md:space-x-6 text-xl">
+            <!-- YouTube アイコン -->
+            <a href="https://www.youtube.com/@UMA_ModCreator" target="_blank" title="YouTube" class="text-red-600 hover:text-red-400 transition duration-300">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <!-- X (旧Twitter) アイコン -->
+            <a href="https://x.com/UMA_ModCreator" target="_blank" title="X(Twitter)" class="text-white hover:text-cyan-400 transition duration-300">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <!-- Discord アイコン -->
+            <a href="https://discord.gg/vSFzWh7Zfe" target="_blank" title="Discord" class="text-indigo-400 hover:text-indigo-200 transition duration-300">
+                <i class="fab fa-discord"></i>
+            </a>
         </div>
     </header>
 
