@@ -384,28 +384,49 @@
 
                 <!-- おすすめ動画セクション (新規追加) -->
                 <div class="text-center">
-                    <h3 class="text-xl font-sf neon-text mt-6 mb-6">FEATURED VIDEO [注目動画]</h3>
+                    <!-- mt-6を維持 -->
+                    <h3 class="text-xl font-sf neon-text mt-6 mb-6">FEATURED VIDEO [注目動画]</h3> 
                     <p class="text-gray-400 mb-8 max-w-2xl mx-auto">
                         最新のプロジェクト紹介やチュートリアル動画をこちらでピックアップしています。
                     </p>
                     
-                    <!-- 動画埋め込みの枠 -->
-                    <div class="max-w-3xl mx-auto bg-[#1A2035] p-4 rounded-xl border border-cyan-800 shadow-xl">
-                        <!-- YouTube埋め込み iframe のラッパー (アスペクト比 16:9 を維持するインラインスタイル) -->
-                        <div class="relative w-full overflow-hidden rounded-lg" style="padding-top: 56.25%;">
-                            <iframe 
-                                src="https://www.youtube.com/embed/YU1mo3vxSGM" 
-                                title="YouTube video player - Placeholder" 
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                referrerpolicy="strict-origin-when-cross-origin" 
-                                allowfullscreen 
-                                class="absolute top-0 left-0 w-full h-full"
-                            ></iframe>
+                    <!-- ☆☆☆ 修正開始: 動画を横に2つ並べるためのコンテナ（max-w-full, flex, md:flex-row, gap-6）を追加 ☆☆☆ -->
+                    <div class="max-w-4xl mx-auto flex flex-col md:flex-row gap-6">
+
+                        <!-- 動画埋め込み 1 -->
+                        <div class="flex-1 bg-[#1A2035] p-4 rounded-xl border border-cyan-800 shadow-xl">
+                            <!-- YouTube埋め込み iframe のラッパー (アスペクト比 16:9 を維持) -->
+                            <div class="relative w-full overflow-hidden rounded-lg" style="padding-top: 56.25%;">
+                                <iframe 
+                                    src="https://www.youtube.com/embed/YU1mo3vxSGM" 
+                                    title="YouTube video player - UMA GAMING FEATURED 1" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                    referrerpolicy="strict-origin-when-cross-origin" 
+                                    allowfullscreen 
+                                    class="absolute top-0 left-0 w-full h-full"
+                                ></iframe>
+                            </div>
+                        </div>
+
+                        <!-- 動画埋め込み 2 (プレースホルダー) -->
+                        <div class="flex-1 bg-[#1A2035] p-4 rounded-xl border border-cyan-800 shadow-xl">
+                            <!-- YouTube埋め込み iframe のラッパー (アスペクト比 16:9 を維持) -->
+                            <div class="relative w-full overflow-hidden rounded-lg" style="padding-top: 56.25%;">
+                                <iframe 
+                                    src="https://www.youtube.com/embed/uuKn7u8tGz0" 
+                                    title="YouTube video player - UMA GAMING FEATURED 2" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                    referrerpolicy="strict-origin-when-cross-origin" 
+                                    allowfullscreen 
+                                    class="absolute top-0 left-0 w-full h-full"
+                                ></iframe>
+                            </div>
                         </div>
                     </div>
                 </div>
-
+                
             </div>
         </section>
         
@@ -770,6 +791,7 @@
 
 </body>
 </html>
+
 
 
 
