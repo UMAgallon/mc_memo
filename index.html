@@ -445,6 +445,72 @@
             </div>
         </section>
 
+        <!-- ☆☆☆ ここからFAQセクションの追加 ☆☆☆ -->
+        <section id="faq" class="mt-20 pt-10 mb-16">
+            <h2 class="text-3xl md:text-4xl font-sf neon-text text-center mb-10 border-b border-cyan-700 pb-4">
+                [ KNOWLEDGE BASE ] よくある質問
+            </h2>
+        
+            <div class="max-w-4xl mx-auto space-y-4">
+                
+                <!-- FAQ Item 1 -->
+                <div class="faq-item rounded-lg overflow-hidden border border-cyan-800 shadow-lg">
+                    <button 
+                        class="faq-button w-full text-left p-4 flex justify-between items-center text-lg font-semibold bg-[#1A2035] hover:bg-[#202840] transition duration-300 focus:outline-none"
+                        aria-expanded="false"
+                        aria-controls="faq-content-1"
+                        onclick="toggleFaq(1)"
+                    >
+                        <span class="text-white">Q: カラフルピーチさんの再現作品は著作権違反になりませんか？</span>
+                        <span id="icon-1" class="text-cyan-400 transform transition duration-300 text-2xl font-light">+</span>
+                    </button>
+                    <div id="faq-content-1" class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-[#0F121C]">
+                        <p class="p-4 text-gray-300 border-t border-cyan-900">
+                            A: カラフルピーチさんの公式ガイドラインによると著作権違反にはならないようです。
+                        </p>
+                    </div>
+                </div>
+        
+                <!-- FAQ Item 2 -->
+                <div class="faq-item rounded-lg overflow-hidden border border-cyan-800 shadow-lg">
+                    <button 
+                        class="faq-button w-full text-left p-4 flex justify-between items-center text-lg font-semibold bg-[#1A2035] hover:bg-[#202840] transition duration-300 focus:outline-none"
+                        aria-expanded="false"
+                        aria-controls="faq-content-2"
+                        onclick="toggleFaq(2)"
+                    >
+                        <span class="text-white">Q: コンテンツの再配布・改変は許可されていますか？</span>
+                        <span id="icon-2" class="text-cyan-400 transform transition duration-300 text-2xl font-light">+</span>
+                    </button>
+                    <div id="faq-content-2" class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-[#0F121C]">
+                        <p class="p-4 text-gray-300 border-t border-cyan-900">
+                            A: 当サイトで配布されているファイルは、個人的な利用に限り許可されています。再配布、または改変後の再配布、自作発言は一切禁止されています。動画配信やスクリーンショットでの利用は自由ですが、できればクレジット表記をお願いします。
+                        </p>
+                    </div>
+                </div>
+        
+                <!-- FAQ Item 3 -->
+                <div class="faq-item rounded-lg overflow-hidden border border-cyan-800 shadow-lg">
+                    <button 
+                        class="faq-button w-full text-left p-4 flex justify-between items-center text-lg font-semibold bg-[#1A2035] hover:bg-[#202840] transition duration-300 focus:outline-none"
+                        aria-expanded="false"
+                        aria-controls="faq-content-3"
+                        onclick="toggleFaq(3)"
+                    >
+                        <span class="text-white">Q: 不具合を見つけました。どこに報告すればいいですか？</span>
+                        <span id="icon-3" class="text-cyan-400 transform transition duration-300 text-2xl font-light">+</span>
+                    </button>
+                    <div id="faq-content-3" class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-[#0F121C]">
+                        <p class="p-4 text-gray-300 border-t border-cyan-900">
+                            A: DiscordサーバーまたはXアカウント（@UMA_ModCreator）のDMまでご連絡ください。可能であれば、発生した状況、使用したバージョン、エラーログなどを添えていただけると、迅速な対応が可能です。
+                        </p>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+        <!-- ☆☆☆ FAQセクションの追加終了 ☆☆☆ -->
+
         <!-- コンタクト/情報セクション -->
         <section class="mt-20 text-center">
             <h2 class="text-3xl font-sf neon-text mb-6">CONNECT WITH UMA</h2>
@@ -607,6 +673,7 @@
 
 </body>
 </html>
+
 
 
 
