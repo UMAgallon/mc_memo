@@ -1,487 +1,91 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UMA GAMING｜HUB</title>
-    <!-- Tailwind CSSの読み込み -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;600;800&display=swap');
-
-        :root {
-            --neon-blue: #00FFFF;
-            --dark-blue: #151A2C;
-            --darker-blue: #0B0E19;
-            --shadow-color: rgba(0, 255, 255, 0.7);
-            --font-sf: 'Orbitron', sans-serif;
-            --font-body: 'Inter', sans-serif;
-        }
-
-        body {
-            font-family: var(--font-body);
-            background-color: var(--darker-blue);
-            color: #E0E0E0;
-            min-height: 100vh;
-            overflow-x: hidden;
-            background-image: linear-gradient(to right, var(--dark-blue) 1px, transparent 1px),
-                              linear-gradient(to bottom, var(--dark-blue) 1px, transparent 1px);
-            background-size: 30px 30px;
-        }
-
-        .neon-text {
-            color: var(--neon-blue);
-            text-shadow: 0 0 5px var(--shadow-color),
-                         0 0 10px var(--shadow-color),
-                         0 0 20px var(--neon-blue);
-            font-family: var(--font-sf);
-        }
-
-        .neon-btn {
-            background-color: var(--dark-blue);
-            border: 2px solid var(--neon-blue);
-            box-shadow: 0 0 8px var(--shadow-color);
-            transition: all 0.3s ease-in-out;
-        }
-
-        .neon-btn:hover {
-            background-color: var(--neon-blue);
-            color: var(--darker-blue);
-            box-shadow: 0 0 15px var(--neon-blue),
-                        0 0 30px var(--shadow-color);
-            transform: scale(1.05);
-        }
-
-        .neon-card {
-            position: relative;
-            background-color: #1A2035;
-            border: 1px solid var(--dark-blue);
-            overflow: hidden;
-            z-index: 10;
-        }
-
-        @keyframes neon-flicker {
-            0%, 19.999%, 22%, 62.999%, 64%, 100% { box-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--shadow-color); opacity: 1; }
-            20%, 21.999%, 63%, 63.999% { box-shadow: 0 0 5px var(--neon-blue), 0 0 10px rgba(0, 255, 255, 0.3); opacity: 0.85; }
-        }
-
-        .neon-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            border: 2px solid transparent;
-            box-shadow: 0 0 4px var(--shadow-color);
-            transition: all 0.5s ease;
-            z-index: 20;
-            pointer-events: none;
-        }
-
-        .neon-card:hover::before {
-            border-color: var(--neon-blue);
-            animation: neon-flicker 1.5s infinite alternate; 
-        }
-
-        .glitch-title {
-            font-family: var(--font-sf);
-            font-size: 4rem;
-            text-transform: uppercase;
-            position: relative;
-            animation: text-shadow 1.5s infinite;
-        }
-
-        .glitch-title::before, .glitch-title::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--darker-blue);
-            overflow: hidden;
-        }
-
-        .glitch-title::before { left: 2px; text-shadow: -2px 0 var(--neon-blue); clip-path: inset(60% 0 10% 0); animation: glitch-anim-1 2s infinite alternate-reverse; }
-        .glitch-title::after { left: -2px; text-shadow: -2px 0 #FF00FF; clip-path: inset(20% 0 70% 0); animation: glitch-anim-2 3s infinite alternate-reverse; }
-
-        @keyframes glitch-anim-1 {
-            0% { clip-path: inset(70% 0 20% 0); }
-            10% { clip-path: inset(5% 0 85% 0); }
-            30% { clip-path: inset(30% 0 60% 0); }
-            50% { clip-path: inset(10% 0 70% 0); }
-            70% { clip-path: inset(50% 0 40% 0); }
-            100% { clip-path: inset(80% 0 10% 0); }
-        }
-
-        @keyframes glitch-anim-2 {
-            0% { clip-path: inset(40% 0 50% 0); }
-            15% { clip-path: inset(10% 0 80% 0); }
-            35% { clip-path: inset(60% 0 30% 0); }
-            55% { clip-path: inset(25% 0 65% 0); }
-            75% { clip-path: inset(80% 0 10% 0); }
-            100% { clip-path: inset(5% 0 85% 0); }
-        }
-
-        .header {
-            background-color: rgba(11, 14, 25, 0.95);
-            border-bottom: 1px solid var(--dark-blue);
-            box-shadow: 0 2px 10px rgba(0, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            z-index: 50;
-        }
-
-        .fade-in-slide {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1s ease-out, transform 0.8s ease-out;
-        }
-
-        .fade-in-slide.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .neon-ring {
-            position: relative;
-            overflow: hidden; 
-        }
-
-        .neon-ring::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border: 4px solid var(--neon-blue);
-            border-radius: 9999px;
-            box-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--shadow-color);
-            transition: all 0.5s;
-        }
-        
-        .data-panel {
-            background-color: rgba(26, 32, 53, 0.7);
-            border: 1px solid var(--neon-blue);
-            padding: 2.5rem;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
-        }
-
-        .separator-line {
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
-            position: relative;
-            overflow: hidden;
-            margin: 4rem auto;
-            max-width: 90%;
-            box-shadow: 0 0 10px var(--neon-blue);
-        }
-
-        .separator-line::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%; width: 100%; height: 100%;
-            background: rgba(0, 255, 255, 0.4);
-            animation: scan-line 4s infinite linear;
-        }
-
-        @keyframes scan-line {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minecraft Memo Block</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 
-<body class="selection:bg-cyan-500 selection:text-black">
-    <div id="particle-canvas" class="fixed inset-0 pointer-events-none opacity-50 z-0"></div>
-
-    <header class="header fixed top-0 w-full p-4 flex justify-between items-center">
-        <div class="logo text-2xl font-bold tracking-widest">
-            <a href="index.html" class="neon-text no-underline">UMA GAMING</a>
-        </div>
-        <nav class="absolute left-1/2 transform -translate-x-1/2 hidden md:flex space-x-8 text-sm font-semibold">
-            <a href="#downloads" class="hover:text-cyan-400 transition duration-300">配布コンテンツ</a>
-            <a href="uma_server.html" class="hover:text-cyan-400 transition duration-300">マイクラ鯖</a>
-            <a href="#faq" class="hover:text-cyan-400 transition duration-300">FAQ</a>
-            <a href="#about" class="hover:text-cyan-400 transition duration-300">クリエイター</a>
-        </nav>
-        <div class="flex items-center space-x-4 md:space-x-6 text-xl">
-            <a href="https://www.youtube.com/@UMA_ModCreator" target="_blank" class="text-red-600 hover:text-red-400 transition duration-300">
-                <i class="fab fa-youtube"></i>
-            </a>
-            <a href="https://x.com/UMA_ModCreator" target="_blank" class="text-white hover:text-cyan-400 transition duration-300">
-                <i class="fab fa-twitter"></i>
-            </a>
-            <a href="https://discord.gg/vSFzWh7Zfe" target="_blank" class="text-indigo-400 hover:text-indigo-200 transition duration-300">
-                <i class="fab fa-discord"></i>
-            </a>
-        </div>
+<body>
+  <div id="app">
+    <header>
+      <h1>MINECRAFT MEMO</h1>
     </header>
-    
-    <main class="pt-20 relative z-10">
-        <!-- ヒーローセクション -->
-        <section class="hero-section min-h-[50vh] flex flex-col justify-center items-center p-8 bg-black bg-opacity-30 border-b border-cyan-700">
-            <h1 class="glitch-title" data-text="UMA GAMING NETWORK">UMA GAMING NETWORK</h1>
-            <p class="mt-4 text-xl tracking-widest text-gray-400 font-sf mb-10">コンテンツを手に入れて最高のゲーム体験をあなたの世界に。</p>
-            <button id="cta-button" class="neon-btn px-8 py-3 text-lg font-bold rounded-full tracking-widest shadow-lg">
-                <span class="flex items-center">
-                    <i class="fas fa-download mr-2"></i>コンテンツをダウンロード
-                </span>
-            </button>
-        </section>
 
-        <div class="separator-line max-w-7xl mx-auto"></div>
+    <div class="controls">
+      <textarea id="memo-input" placeholder="Type your memo here..." rows="3"></textarea>
 
-        <!-- クリエイター紹介 -->
-        <section id="about" class="py-16 px-4 sm:px-8 lg:px-16 bg-black bg-opacity-50">
-            <div class="max-w-4xl mx-auto">
-                <h2 class="text-3xl font-bold mb-12 text-center neon-text font-sf fade-in-slide">
-                    <span class="border-b-4 border-cyan-500 pb-2">PROFILE LOG</span>
-                </h2>
+      <div class="wood-selector">
+        <!-- Radio buttons for wood types -->
+        <label class="wood-option oak" title="Oak">
+          <input type="radio" name="wood" value="oak" checked>
+          <span class="wood-icon"></span>
+        </label>
+        <label class="wood-option spruce" title="Spruce">
+          <input type="radio" name="wood" value="spruce">
+          <span class="wood-icon"></span>
+        </label>
+        <label class="wood-option birch" title="Birch">
+          <input type="radio" name="wood" value="birch">
+          <span class="wood-icon"></span>
+        </label>
+        <label class="wood-option jungle" title="Jungle">
+          <input type="radio" name="wood" value="jungle">
+          <span class="wood-icon"></span>
+        </label>
+        <label class="wood-option acacia" title="Acacia">
+          <input type="radio" name="wood" value="acacia">
+          <span class="wood-icon"></span>
+        </label>
+        <label class="wood-option dark-oak" title="Dark Oak">
+          <input type="radio" name="wood" value="dark-oak">
+          <span class="wood-icon"></span>
+        </label>
+      </div>
 
-                <div class="data-panel rounded-xl shadow-2xl fade-in-slide">
-                    <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
-                        <div class="flex flex-col items-center flex-shrink-0">
-                            <div class="w-32 h-32 md:w-40 md:h-40 neon-ring rounded-full bg-gray-900 mb-4">
-                                <img src="./img/uma_icon.png" alt="UMA" onerror="this.onerror=null;this.src='https://placehold.co/160x160/0B0E19/00FFFF?text=UMA'" class="w-full h-full object-cover rounded-full p-1"/>
-                            </div>
-                            <p class="text-3xl font-sf font-bold neon-text tracking-wider">UMA</p>
-                            <p class="text-base text-cyan-400 font-sf mt-1">[CONTENT CREATOR]</p>
-                        </div>
-                        <div class="flex-grow text-left mt-6 md:mt-0">
-                            <h3 class="text-xl font-bold text-cyan-500 mb-4 font-sf tracking-wider">MISSION LOG</h3>
-                            <ul class="space-y-3 text-sm text-gray-300">
-                                <li class="flex items-start"><span class="neon-text mr-3">>></span><p>Minecraftカスタムコンテンツ制作</p></li>
-                                <li class="flex items-start"><span class="neon-text mr-3">>></span><p>「ゲームを作成する」クリエイティブな活動</p></li>
-                                <li class="flex items-start"><span class="neon-text mr-3">>></span><p>プロジェクトの成果物を公開中</p></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+      <button id="craft-btn">CRAFT SIGN</button>
 
-                <!-- サーバー紹介（画像対応版） -->
-                <div class="mt-12 fade-in-slide">
-                    <div class="neon-card rounded-xl border border-cyan-500 bg-[#0F121C] overflow-hidden group">
-                        <div class="flex flex-col lg:flex-row">
-                            <!-- 画像エリア -->
-                            <div class="lg:w-1/2 h-64 lg:h-auto overflow-hidden relative">
-                                <img src="./img/server_preview.jpg" alt="サーバープレビュー" onerror="this.onerror=null;this.src='https://placehold.co/800x450/0B0E19/00FFFF?text=SERVER+PREVIEW'" class="w-full h-full object-cover transition duration-500 group-hover:scale-110"/>
-                                <div class="absolute inset-0 bg-gradient-to-r from-transparent to-[#0F121C] hidden lg:block"></div>
-                            </div>
-                            <!-- テキストエリア -->
-                            <div class="lg:w-1/2 p-8 relative z-10 flex flex-col justify-center">
-                                <div class="flex items-center mb-4">
-                                    <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500 mr-2"></span>
-                                    <h3 class="text-2xl font-sf neon-text tracking-widest">UMA SERVER</h3>
-                                </div>
-                                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6">
-                                    視聴者参加型企画や、配布MODの世界観をマルチプレイで体験。<br>
-                                    公式コミュニティに参加して、最新イベントをチェックしよう。
-                                </p>
-                                <a href="uma_server.html" class="neon-btn px-6 py-3 rounded-lg font-bold text-center inline-block group-hover:shadow-[0_0_20px_var(--neon-blue)]">
-                                    [ENTER WORLD] マイクラ鯖詳細
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <div class="separator-line max-w-7xl mx-auto"></div>
+      <div class="admin-controls">
+        <label class="admin-toggle">
+          <input type="checkbox" id="admin-mode">
+          Admin Mode (Delete)
+        </label>
+      </div>
+    </div>
 
-        <!-- 配布ファイル一覧 -->
-        <section id="downloads" class="py-16 px-4 sm:px-8 lg:px-16">
-            <div class="max-w-7xl mx-auto">
-                <h2 class="text-3xl font-bold mb-12 text-center neon-text font-sf">PROJECT DATA ARTIFACTS</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <article class="download-item neon-card rounded-xl p-6 flex flex-col justify-between fade-in-slide">
-                        <div>
-                            <h3 class="text-2xl font-bold neon-text mb-2">ピエロがいるサバイバル再現MOD</h3>
-                            <p class="text-sm font-sf mb-4 text-cyan-300">V1.20.1</p>
-                            <p class="text-gray-300 mb-6">人狼×サバイバルのスリルを再現。</p>
-                        </div>
-                        <a href="clown_survival.html" class="neon-btn text-center py-2 rounded-lg font-bold">VIEW PROJECT LOG</a>
-                    </article>
-                    <article class="download-item neon-card rounded-xl p-6 flex flex-col justify-between fade-in-slide">
-                        <div>
-                            <h3 class="text-2xl font-bold neon-text mb-2">だるまさんが転んだサバイバル再現MOD</h3>
-                            <p class="text-sm font-sf mb-4 text-cyan-300">V1.20.1</p>
-                            <p class="text-gray-300 mb-6">命がけのだるまさんがころんだ。</p>
-                        </div>
-                        <a href="daruma_survival.html" class="neon-btn text-center py-2 rounded-lg font-bold">VIEW PROJECT LOG</a>
-                    </article>
-                    <article class="download-item neon-card rounded-xl p-6 flex flex-col justify-between fade-in-slide">
-                        <div>
-                            <h3 class="text-2xl font-bold neon-text mb-2">リアル鬼ごっこサバイバル再現MOD</h3>
-                            <p class="text-sm font-sf mb-4 text-cyan-300">V1.20.1</p>
-                            <p class="text-gray-300 mb-6">逃げ切れるか。究極の鬼ごっこ。</p>
-                        </div>
-                        <a href="real_tag_game_survival.html" class="neon-btn text-center py-2 rounded-lg font-bold">VIEW PROJECT LOG</a>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- FAQセクション -->
-        <section id="faq" class="py-20 bg-black bg-opacity-20 px-4">
-            <h2 class="text-3xl font-sf neon-text text-center mb-10 border-b border-cyan-700 pb-4">KNOWLEDGE BASE</h2>
-            <div class="max-w-4xl mx-auto space-y-4">
-                <!-- FAQ 1 -->
-                <div class="faq-item rounded-lg border border-cyan-800">
-                    <button class="w-full text-left p-4 flex justify-between bg-[#1A2035] hover:bg-[#202840]" onclick="toggleFaq(1)">
-                        <span>Q: カラフルピーチさんの再現作品は著作権違反になりませんか？</span>
-                        <span id="icon-1" class="text-cyan-400">+</span>
-                    </button>
-                    <div id="faq-content-1" class="max-h-0 overflow-hidden transition-all duration-300 bg-[#0F121C]">
-                        <p class="p-4 text-gray-400">A: 公式ガイドラインに基づき、ファン活動の範囲内であれば問題ありません。</p>
-                    </div>
-                </div>
-                <!-- FAQ 2 -->
-                <div class="faq-item rounded-lg border border-cyan-800">
-                    <button class="w-full text-left p-4 flex justify-between bg-[#1A2035] hover:bg-[#202840]" onclick="toggleFaq(2)">
-                        <span>Q: コンテンツの再配布・改変は許可されていますか？</span>
-                        <span id="icon-2" class="text-cyan-400">+</span>
-                    </button>
-                    <div id="faq-content-2" class="max-h-0 overflow-hidden transition-all duration-300 bg-[#0F121C]">
-                        <p class="p-4 text-gray-400">A: 個人利用のみ許可されています。再配布や自作発言は禁止です。</p>
-                    </div>
-                </div>
-                <!-- FAQ 3 -->
-                <div class="faq-item rounded-lg border border-cyan-800">
-                    <button class="w-full text-left p-4 flex justify-between bg-[#1A2035] hover:bg-[#202840]" onclick="toggleFaq(3)">
-                        <span>Q: 不具合を見つけました。どこに報告すればいいですか？</span>
-                        <span id="icon-3" class="text-cyan-400">+</span>
-                    </button>
-                    <div id="faq-content-3" class="max-h-0 overflow-hidden transition-all duration-300 bg-[#0F121C]">
-                        <p class="p-4 text-gray-400">A: DiscordサーバーまたはXのDMまで詳細を添えてご連絡ください。</p>
-                    </div>
-                </div>
-                <!-- 追加 FAQ 4 -->
-                <div class="faq-item rounded-lg border border-cyan-800">
-                    <button class="w-full text-left p-4 flex justify-between bg-[#1A2035] hover:bg-[#202840]" onclick="toggleFaq(4)">
-                        <span>Q: サーバーへの参加に費用はかかりますか？</span>
-                        <span id="icon-4" class="text-cyan-400">+</span>
-                    </button>
-                    <div id="faq-content-4" class="max-h-0 overflow-hidden transition-all duration-300 bg-[#0F121C]">
-                        <p class="p-4 text-gray-400">A: 基本的に無料で参加いただけます。ただし、Minecraft本体の購入が必要です。</p>
-                    </div>
-                </div>
-                <!-- 追加 FAQ 5 -->
-                <div class="faq-item rounded-lg border border-cyan-800">
-                    <button class="w-full text-left p-4 flex justify-between bg-[#1A2035] hover:bg-[#202840]" onclick="toggleFaq(5)">
-                        <span>Q: サーバーはどの機種に対応していますか？</span>
-                        <span id="icon-5" class="text-cyan-400">+</span>
-                    </button>
-                    <div id="faq-content-5" class="max-h-0 overflow-hidden transition-all duration-300 bg-[#0F121C]">
-                        <p class="p-4 text-gray-400">A: 現在すべての機種に対応しています。それぞれの機種での入り方はご自分で調べてください。</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="mt-20 text-center pb-20 px-4">
-            <h2 class="text-3xl font-sf neon-text mb-6">CONNECT WITH UMA</h2>
-            <div class="flex justify-center space-x-6 text-3xl">
-                <a href="https://www.youtube.com/@UMA_ModCreator" target="_blank" class="text-red-600 hover:text-red-400 transition duration-300"><i class="fab fa-youtube"></i></a>
-                <a href="https://x.com/UMA_ModCreator" target="_blank" class="text-white hover:text-cyan-400 transition duration-300"><i class="fab fa-twitter"></i></a>
-                <a href="https://discord.gg/vSFzWh7Zfe" target="_blank" class="text-indigo-400 hover:text-indigo-200 transition duration-300"><i class="fab fa-discord"></i></a>
-            </div>
-        </section>
-    </main>
-
-    <footer class="p-6 text-center text-xs text-gray-600 border-t border-cyan-900">
-        <p class="tracking-widest font-sf">&copy; UMA GAMING NETWORK. ALL RIGHTS RESERVED.</p>
-    </footer>
-
-    <script>
-        function toggleFaq(id) {
-            const content = document.getElementById(`faq-content-${id}`);
-            const icon = document.getElementById(`icon-${id}`);
-            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
-                content.style.maxHeight = '0px';
-                icon.textContent = '+';
-            } else {
-                content.style.maxHeight = content.scrollHeight + 'px';
-                icon.textContent = '×';
-            }
-        }
-
-        const particleCanvas = document.getElementById('particle-canvas');
-        let canvasW = window.innerWidth, canvasH = window.innerHeight;
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvasW; 
-                this.y = Math.random() * canvasH;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 0.4 - 0.2; 
-                this.speedY = Math.random() * 0.4 - 0.2;
-                this.element = document.createElement('div');
-                this.element.style.cssText = `position:absolute;width:${this.size}px;height:${this.size}px;background:var(--neon-blue);border-radius:50%;box-shadow:0 0 5px var(--neon-blue);opacity:0.3;pointer-events:none;`;
-                particleCanvas.appendChild(this.element);
-            }
-            update() {
-                this.x += this.speedX; 
-                this.y += this.speedY;
-                if (this.x > canvasW) this.x = 0; 
-                if (this.x < 0) this.x = canvasW;
-                if (this.y > canvasH) this.y = 0; 
-                if (this.y < 0) this.y = canvasH;
-                this.element.style.transform = `translate(${this.x}px, ${this.y}px)`;
-            }
-        }
-
-        let particles = Array.from({ length: 50 }, () => new Particle());
-
-        function loop() { 
-            particles.forEach(p => p.update()); 
-            requestAnimationFrame(loop); 
-        }
-        
-        // パーティクルアニメーション開始
-        loop();
-
-        // 画面リサイズ時にキャンバスサイズを更新
-        window.addEventListener('resize', () => {
-            canvasW = window.innerWidth;
-            canvasH = window.innerHeight;
-        });
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-visible'); });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.fade-in-slide').forEach(e => observer.observe(e));
-        
-        document.getElementById('cta-button').onclick = () => document.getElementById('downloads').scrollIntoView({ behavior: 'smooth' });
-    </script>
+    <div class="board">
+      <!-- Columns for each wood type -->
+      <div class="column" data-type="oak">
+        <div class="column-header">Oak</div>
+        <div class="sign-stack" id="stack-oak"></div>
+      </div>
+      <div class="column" data-type="spruce">
+        <div class="column-header">Spruce</div>
+        <div class="sign-stack" id="stack-spruce"></div>
+      </div>
+      <div class="column" data-type="birch">
+        <div class="column-header">Birch</div>
+        <div class="sign-stack" id="stack-birch"></div>
+      </div>
+      <div class="column" data-type="jungle">
+        <div class="column-header">Jungle</div>
+        <div class="sign-stack" id="stack-jungle"></div>
+      </div>
+      <div class="column" data-type="acacia">
+        <div class="column-header">Acacia</div>
+        <div class="sign-stack" id="stack-acacia"></div>
+      </div>
+      <div class="column" data-type="dark-oak">
+        <div class="column-header">Dark Oak</div>
+        <div class="sign-stack" id="stack-dark-oak"></div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
